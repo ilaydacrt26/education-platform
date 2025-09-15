@@ -1,0 +1,6 @@
+streamlit
+streamlit-webrtc
+plotly
+matplotlib
+openai
+bcrypt
