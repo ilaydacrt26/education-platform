@@ -306,3 +306,4 @@ AI destekli sanal sınıf ve ders modülleri içeren kapsamlı eğitim platformu
 │       ├── ai_writing_eval.py    # AI ile yazılı metin değerlendirme ve geliştirme önerileri
 │       └── ai_recommendations.py # AI destekli kişiselleştirilmiş öğrenme önerileri ve planları
 ```
+

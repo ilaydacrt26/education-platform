@@ -1,37 +1,38 @@
 import streamlit as st
-from utils.auth import register_user, login_user
+from utils.auth import login_user
 
 def show():
-    st.title("Giriş Yap / Kayıt Ol")
+    st.title("Giriş Yap")
 
-    col1, col2 = st.columns(2)
+    user_type = st.radio("Kullanıcı Tipi Seçin:", ("Öğrenci", "Öğretmen"), key="login_user_type")
 
-    with col1:
-        st.subheader("Giriş Yap")
-        login_username_email = st.text_input("Kullanıcı Adı veya E-posta")
-        login_password = st.text_input("Şifre", type="password")
-        if st.button("Giriş Yap"):
-            user = login_user(login_username_email, login_password)
-            if user:
-                st.session_state['logged_in'] = True
-                st.session_state['username'] = user['username'] # Kullanıcı adını session'a kaydet
-                st.success(f"Hoş geldin, {user['username']}!")
-                st.rerun()
-            else:
-                st.error("Yanlış kullanıcı adı/e-posta veya şifre.")
+    st.subheader(f"{user_type} Girişi")
+    login_first_name = st.text_input("Adınız", key="login_first_name")
+    login_last_name = st.text_input("Soyadınız", key="login_last_name")
+    login_password = st.text_input("Şifre", type="password", key="login_password")
+    if st.button("Giriş Yap", key="login_button"):
+        if user_type == "Öğretmen":
+            user = login_user("teacher", login_first_name, login_last_name, login_password)
+        else: # Öğrenci
+            user = login_user("student", login_first_name, login_last_name, login_password)
 
-    with col2:
-        st.subheader("Kayıt Ol")
-        new_username = st.text_input("Yeni Kullanıcı Adı")
-        new_email = st.text_input("E-posta")
-        new_password = st.text_input("Yeni Şifre", type="password")
-        confirm_password = st.text_input("Şifreyi Onayla", type="password")
+        if user:
+            st.session_state['logged_in'] = True
+            st.session_state['first_name'] = user['first_name']
+            st.session_state['last_name'] = user['last_name']
+            print(f"DEBUG: User type before session state assignment: {user_type}")
+            st.session_state['user_type'] = user_type.lower() # 'öğretmen' or 'öğrenci'
+            print(f"DEBUG: User type in session state after assignment: {st.session_state['user_type']}")
+            if user_type == "Öğretmen":
+                st.session_state['branch'] = user['branch']
+            else: # Öğrenci
+                st.session_state['class'] = user['class']
+            st.success(f"Hoş geldin, {user['first_name']} {user['last_name']}!")
+            st.rerun()
+        else:
+            st.error("Yanlış ad/soyad veya şifre.")
 
-        if st.button("Kayıt Ol"):
-            if new_password == confirm_password:
-                if register_user(new_username, new_email, new_password):
-                    st.success("Kayıt başarılı! Lütfen giriş yapın.")
-                else:
-                    st.error("Kullanıcı adı veya e-posta zaten kullanımda.")
-            else:
-                st.error("Şifreler eşleşmiyor.")
+    st.markdown("Hesabınız yok mu?")
+    if st.button("Kayıt Sayfasına Git", key="go_to_register"):
+        st.session_state['page'] = 'register'
+        st.rerun()

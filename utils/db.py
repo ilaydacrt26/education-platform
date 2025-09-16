@@ -11,9 +11,21 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute('''
-        CREATE TABLE IF NOT EXISTS users (
+        CREATE TABLE IF NOT EXISTS teachers (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT NOT NULL UNIQUE,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            email TEXT NOT NULL UNIQUE,
+            branch TEXT NOT NULL,
+            password TEXT NOT NULL
+        )
+    ''')
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS students (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT NOT NULL,
+            last_name TEXT NOT NULL,
+            class TEXT NOT NULL,
             email TEXT NOT NULL UNIQUE,
             password TEXT NOT NULL
         )
@@ -24,3 +36,4 @@ def init_db():
 if __name__ == '__main__':
     init_db()
     print("Veritabanı ve kullanıcı tablosu oluşturuldu veya zaten mevcut.")
+
