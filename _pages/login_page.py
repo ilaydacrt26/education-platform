@@ -20,13 +20,13 @@ def show():
             st.session_state['logged_in'] = True
             st.session_state['first_name'] = user['first_name']
             st.session_state['last_name'] = user['last_name']
-            print(f"DEBUG: User type before session state assignment: {user_type}")
             st.session_state['user_type'] = user_type.lower() # 'öğretmen' or 'öğrenci'
-            print(f"DEBUG: User type in session state after assignment: {st.session_state['user_type']}")
             if user_type == "Öğretmen":
                 st.session_state['branch'] = user['branch']
+                st.session_state['teacher_id'] = user['id'] # Store teacher_id
             else: # Öğrenci
                 st.session_state['class'] = user['class']
+                st.session_state['student_id'] = user['id'] # Store student_id
             st.success(f"Hoş geldin, {user['first_name']} {user['last_name']}!")
             st.rerun()
         else:
