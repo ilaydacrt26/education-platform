@@ -186,7 +186,6 @@ def show():
             if st.button("Sınıfı Kapat"):
                 del st.session_state['active_class']
                 st.rerun()
-    st.write("Burada dersler oluşturabilir aynı zamanda takvimi yönetebilir ve takvime eklemeler yapabilirsiniz.")
 
     # Virtual Classroom Interface
     if st.session_state.get('in_classroom') and st.session_state.get('active_class'):
