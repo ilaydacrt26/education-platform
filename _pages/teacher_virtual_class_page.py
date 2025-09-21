@@ -2,7 +2,7 @@ import streamlit as st
 
 def show():
     st.title("Öğretmen Sanal Sınıf Modülü")
-    st.write("Burada dersler oluşturabilir, takvimi yönetebilir ve takvime eklemeler yapabilirsiniz.")
+    st.write("Burada dersler oluşturabilir aynı zamanda takvimi yönetebilir ve takvime eklemeler yapabilirsiniz.")
 
     st.subheader("Yeni Sanal Sınıf Oluştur")
     with st.form(key='create_virtual_class_form'):

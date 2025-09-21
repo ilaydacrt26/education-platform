@@ -30,6 +30,11 @@ def show():
         st.session_state['first_name'] = None
         st.session_state['last_name'] = None
         st.session_state['user_type'] = None
+        st.session_state['user_id'] = None
+        st.session_state['teacher_id'] = None
+        st.session_state['student_id'] = None
+        st.session_state['branch'] = None
+        st.session_state['class'] = None
         st.session_state['page'] = 'login' # Redirect to login page
         st.rerun()
 
