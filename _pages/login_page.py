@@ -21,6 +21,7 @@ def show():
             st.session_state['first_name'] = user['first_name']
             st.session_state['last_name'] = user['last_name']
             st.session_state['user_type'] = user_type.lower() # 'öğretmen' or 'öğrenci'
+            st.session_state['user_id'] = user['id'] # Store user_id for both types
             if user_type == "Öğretmen":
                 st.session_state['branch'] = user['branch']
                 st.session_state['teacher_id'] = user['id'] # Store teacher_id
